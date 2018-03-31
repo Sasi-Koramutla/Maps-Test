@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    
+      /*
+        #map {
+        height: 100%;
+      }
+       Optional: Makes the sample page fill the window. */
+    /*  html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }*/
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+       <div class="container">
+            <br>
+      </div>
+
+      <div class="container" style="text-align: center;">
+        <h1>City Application</h1>
+    
+        <!-- Rendered Buttons will get Dumped Here  -->
+        <div id="buttons-view">
+          <button class='btn btn-primary' id="atl">Atlanta</button>
+          <button class='btn btn-primary' id="mia">Miami</button>
+          <button class='btn btn-primary' id="nyc">New York</button>
+          <button class='btn btn-primary' id="chg">Chicago</button>
+          <button class='btn btn-primary' id="los">Los Angeles</button>
+          <br>
+        </div>
+        <br>
+         <div class= "row">
+            <div class= "col-lg-3"></div>
+            <div class= "col-lg-6" id="maps" style="height:400px; text-align: center;"></div>
+            <div class= "col-lg-3"></div>
+             <!-- <div id="map" style="position:absolute;width:400px;height:400px;"></div> -->
+            
+        </div>
+    
+   
+       
+
+  </body>
+</html>
+
+<script>
+
+    var vlat = 33.8273952;
+    var vlng = -84.466407;
+    var vzoom = 3;
+    var city = { name: ["atl","mia","nyc","chg","los"], 
+                 lat:[33.8273952,25.761680,40.6971494,41.85,34.0201613], 
+                 lang:[-84.466407,-80.191790,-74.2598712, -87.64999999999998,-118.6919267]
+                };
+
+    $(document).on("click", ".btn", function() 
+      { event.preventDefault();
+        console.log(this.id);
+         for(i = 0;i < city.name.length;i++)
+         {
+            
+           if(this.id === city.name[i])
+           {
+            console.log(city.name[i],city.lat[i],city.lang[i]);
+             vlat = city.lat[i];
+             vlng = city.lang[i];
+             vzoom = 8;
+             initMap();
+           }
+         
+         }
+       // if($(this).val()==)
+      });
+
+    function initMap() 
+    {
+      console.log(vlat,vlng,vzoom);
+      var map = new google.maps.Map(document.getElementById('maps'), {
+        zoom: vzoom,
+        center: {lat: vlat, lng: vlng} //33.8273952,-84.466407
+      })
+      
+      var marker = new google.maps.Marker({
+          position: {lat: vlat, lng: vlng},
+          map: map
+        });
+    };
+
+
+
+      
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-b8rIC0nONATt56H52WbPaU1TsMB3Gng"
+  ></script>
